@@ -1,13 +1,11 @@
 
 import './App.css';
-// import Header from './components/Header';
-import Body from './components/Body';
+import Challenge from './components/Challenge';
 
 function App() {
   return (
     <div className="App">
-      {/* <Header/> */}
-      <Body/>
+      <Challenge/>
     </div>
   );
 }

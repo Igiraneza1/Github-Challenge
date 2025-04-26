@@ -10,10 +10,3 @@ body {
   width: 70%;
   font-family: 'Times New Roman', Times, serif;
 }
-
-.main{
-  background-color: rgb(4, 35, 78);
-  padding: 20px;
-  align-items: center;
-  justify-content: center;
-}

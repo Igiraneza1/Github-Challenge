@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function Body() {
+function Challenge() {
   const [username, setUsername] = useState("");
   const [userData, setUserData] = useState(null);
 
@@ -129,4 +129,4 @@ function Body() {
   );
 }
 
-export default Body;
+export default Challenge;
