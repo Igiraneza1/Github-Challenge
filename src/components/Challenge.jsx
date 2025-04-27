@@ -1,10 +1,27 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function Challenge() {
-  const [username, setUsername] = useState("");
+  const [theme, setTheme] = useState('dark');
+  const [username, setUsername] = useState('');
   const [userData, setUserData] = useState(null);
 
-  const fetchUser = async () => {
+  useEffect(() =>{
+    const storedTheme = localStorage.getItem('theme');
+    if (storedTheme){
+      setTheme(storedTheme);
+    }
+  }, []);
+
+  useEffect(()=>{
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  const toggleTheme = ()=>{
+    setTheme(prev =>(prev === 'dark'? 'light':'dark'));
+  };
+
+  async function fetchUser(){
     if (!username) return;
     try {
       const response = await fetch(`https://api.github.com/users/${username}`);
@@ -12,15 +29,18 @@ function Challenge() {
       setUserData(data);
     } 
     catch (error) {
-      console.error("Error fetching user:", error);
+      console.error("Error to fetch user:", error);
     }
   };
 
   return (
-    <div className="min-h-screen text-white flex flex-col items-center p-6">
+    <div className=" text-white flex flex-col items-center p-6">
       <h1 className="text-3xl font-bold mb-6">devfinder</h1>
+      <button onClick={toggleTheme}>
+        {theme=== 'dark'? 'light':'dark'}
+      </button>
 
-      <div className="flex w-full max-w-md mb-8">
+      <div className="flex w-full mb-8">
         <input
           type="text"
           placeholder="Search GitHub username..."
@@ -96,7 +116,7 @@ function Challenge() {
             <p>
               {userData.twitter_username ? (
                 <a
-                  href={`https://twitter.com/${userData.twitter_username}`}
+                  href={`https://twitter.com/${userData.username}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-blue-400"
