@@ -28,11 +28,11 @@ function Challenge() {
   };
 
   return (
-    <div className="text-white flex flex-col items-center min-h-screen p-4">
+    <div className="text-white flex flex-col items-center min-h-screen p-4 ">
       <div className="flex justify-between items-center w-full max-w-2xl mt-5 mb-3">
         <h1 className="text-3xl font-bold">devfinder</h1>
         <button onClick={toggleTheme} className="text-2xl hover:scale-110 transition-transform">
-          {theme === 'dark' ? '🌕' : '🌑'}
+          {theme === 'dark:' ? '🌕' : '🌑'}
         </button>
       </div>
 
@@ -53,7 +53,7 @@ function Challenge() {
       </div>
 
       {userData && (
-        <div className="bg-slate-800 rounded-xl p-5 w-full max-w-2xl">
+        <div className="bg-slate-800 rounded-xl p-5 w-full max-w-2xl"> 
           <div className="flex flex-wrap justify-between items-center">
             <div className="flex items-center gap-4">
               <img
