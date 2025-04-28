@@ -1,86 +1,78 @@
 import { useEffect, useState } from "react";
 
 function Challenge() {
-  const [theme, setTheme] = useState('dark');
   const [username, setUsername] = useState('');
   const [userData, setUserData] = useState(null);
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem('theme') || 'dark';
+  });
 
-  useEffect(() =>{
-    const storedTheme = localStorage.getItem('theme');
-    if (storedTheme){
-      setTheme(storedTheme);
-    }
-  }, []);
-
-  useEffect(()=>{
+  useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
   }, [theme]);
 
-  const toggleTheme = ()=>{
-    setTheme(prev =>(prev === 'dark'? 'light':'dark'));
+  const toggleTheme = () => {
+    setTheme(prev => (prev === 'dark' ? 'light' : 'dark'));
   };
 
-  async function fetchUser(){
+  async function fetchUser() {
     if (!username) return;
     try {
       const response = await fetch(`https://api.github.com/users/${username}`);
       const data = await response.json();
       setUserData(data);
-    } 
-    catch (error) {
-      console.error("Error to fetch user:", error);
+    } catch (error) {
+      console.error("Error fetching user:", error);
     }
   };
 
   return (
-    <div className=" text-white flex flex-col items-center p-6">
-      <h1 className="text-3xl font-bold mb-6">devfinder</h1>
-      <button onClick={toggleTheme}>
-        {theme=== 'dark'? 'light':'dark'}
-      </button>
+    <div className="text-white flex flex-col items-center min-h-screen p-4">
+      <div className="flex justify-between items-center w-full max-w-2xl mt-5 mb-3">
+        <h1 className="text-3xl font-bold">devfinder</h1>
+        <button onClick={toggleTheme} className="text-2xl hover:scale-110 transition-transform">
+          {theme === 'dark' ? '🌕' : '🌑'}
+        </button>
+      </div>
 
-      <div className="flex w-full mb-8">
+      <div className="flex w-full max-w-2xl mb-8">
         <input
           type="text"
           placeholder="Search GitHub username..."
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          className="flex-1 p-3 rounded-l-lg bg-slate-800 outline-none"
+          className="flex-1 p-3 mt-5 rounded-l-lg bg-slate-800 outline-none"
         />
         <button
           onClick={fetchUser}
-          className="bg-blue-500 hover:bg-blue-600 p-3 rounded-lg"
+          className="bg-blue-500 hover:bg-blue-800 p-3 mt-5 rounded-r-lg text-white"
         >
           Search
         </button>
       </div>
 
       {userData && (
-        <div className="bg-slate-800 rounded-xl p-6 w-full max-w-md">
-        <div className="flex">
-          <div className="flex items-center gap-4">
-            <img
-              src={userData.avatar_url}
-              alt="Avatar"
-              className="w-16 h-16 rounded-full"
-            />
-        
+        <div className="bg-slate-800 rounded-xl p-5 w-full max-w-2xl">
+          <div className="flex flex-wrap justify-between items-center">
+            <div className="flex items-center gap-4">
+              <img
+                src={userData.avatar_url}
+                alt="Avatar"
+                className="w-16 h-16 rounded-full"
+              />
               <h2 className="text-xl font-bold">{userData.name || "No Name"}</h2>
             </div>
-              <div>
-              <p className="text-sm text-gray-400 flex ml-32">
-                Joined {new Date(userData.created_at).toLocaleDateString()}
-              </p>
-              </div>
-
+            <p className="text-sm text-gray-400">
+              Joined {new Date(userData.created_at).toLocaleDateString()}
+            </p>
           </div>
 
           <p className="mt-4 text-gray-300 ml-20">
             {userData.bio || "This profile has no bio"}
           </p>
 
-          <div className="bg-slate-950 p-4 ml-20 rounded-lg flex justify-around mt-6">
+          <div className="bg-slate-950 ml-20 p-4 rounded-lg flex justify-around mt-6">
             <div className="text-center">
               <p className="text-xs text-gray-400">Repos</p>
               <p className="font-bold">{userData.public_repos}</p>
@@ -95,14 +87,12 @@ function Challenge() {
             </div>
           </div>
 
-          <div className="mt-6 ml-20 grid grid-cols-2">
-            <p>
-              {userData.location || "Not Available"}
-            </p>
+          <div className="mt-6 ml-20 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <p>{userData.location || "Not Available"}</p>
             <p>
               {userData.blog ? (
                 <a
-                  href={userData.blog}
+                  href={userData.blog.startsWith('http') ? userData.blog : `https://${userData.blog}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-blue-400"
@@ -116,21 +106,6 @@ function Challenge() {
             <p>
               {userData.twitter_username ? (
                 <a
-                  href={`https://twitter.com/${userData.username}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-400"
-                >
-                  @{userData.twitter_username}
-                </a>
-              ) : (
-                "Not Available"
-              )}
-            </p>
-
-            <p>
-              {userData.twitter_username ? (
-                <a
                   href={`https://twitter.com/${userData.twitter_username}`}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -141,6 +116,9 @@ function Challenge() {
               ) : (
                 "Not Available"
               )}
+            </p>
+            <p>
+              {userData.company || "Not Available"}
             </p>
           </div>
         </div>
