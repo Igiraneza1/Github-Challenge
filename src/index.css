@@ -45,6 +45,12 @@ body {
   background-color: #182f4d;
   color: #e2e2e3;
 }
+[data-theme='light'] .followers{
+  background-color: #afb1b3;
+}
+[data-theme='light'] .followers p{
+  color: #293645;
+}
 body {
   background-color: var(--bg-color);
   color: var(--text-color);

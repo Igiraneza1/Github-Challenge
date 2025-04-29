@@ -72,7 +72,7 @@ function Challenge() {
             {userData.bio || "This profile has no bio"}
           </p>
 
-          <div className="bg-slate-800 ml-20 p-4 rounded-lg flex justify-around mt-6">
+          <div className=" followers bg-slate-800 ml-20 p-4 rounded-lg flex justify-around mt-6">
             <div className="text-center">
               <p className="text-xs text-gray-300 ">Repos</p>
               <p className="font-bold">{userData.public_repos}</p>
