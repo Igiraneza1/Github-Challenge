@@ -3,7 +3,6 @@
 @tailwind utilities;
 
 body {
-  background-color: rgb(7, 26, 53);
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -11,18 +10,41 @@ body {
   font-family: 'Times New Roman', Times, serif;
 }
 
-/* styles.css */
 
-:root {
-  --bg-color: #ffffff;
-  --text-color: #000000;
-}
 
 [data-theme='dark'] {
-  --bg-color: #121212;
+  --bg-color: #051830;
   --text-color: #ffffff;
+
 }
 
+[data-theme='light'] {
+  --bg-color: #ffffff;
+  --text-color: #051830;
+}
+
+
+[data-theme='dark'] h1{
+  color: #e2e2e3;
+}
+
+[data-theme='dark'] .hello{
+  background-color: #223d5e;
+}
+[data-theme='dark'] .hello h2{
+  color: #d6d8db;
+}
+[data-theme='dark'] .hello p{
+  color: #d6d8db;
+}
+[data-theme='light'] .hello h2{
+  color: #051830;
+  
+}
+[data-theme='dark'] .search{
+  background-color: #223d5e;
+  color: #e2e2e3;
+}
 body {
   background-color: var(--bg-color);
   color: var(--text-color);
