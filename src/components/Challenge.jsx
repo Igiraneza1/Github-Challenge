@@ -17,6 +17,7 @@ function Challenge() {
   useEffect(() => {
     async function fetchDefaultUser() {
       try {
+
         const response = await fetch('https://api.github.com/users/octocat');
         const data = await response.json();
         setUserData(data);
@@ -27,12 +28,6 @@ function Challenge() {
   
     fetchDefaultUser(); 
   }, []);
-  
-
-  useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('theme', theme);
-  }, [theme]);
 
   const toggleTheme = () => {
     setTheme(prev => (prev === 'dark' ? 'light' : 'dark'));
@@ -56,7 +51,7 @@ function Challenge() {
     <div className="text-black flex flex-col items-center min-h-screen p-4">
       <div className="flex justify-between items-center w-full max-w-2xl mt-5 mb-3 px-4 md:px-0">
         <h1 className="text-2xl md:text-3xl font-bold devfinder">devfinder</h1>
-        <button onClick={toggleTheme} className="text-xl md:text-2xl hover:scale-110 transition-transform">
+        <button onClick={toggleTheme} className=" text-gray-400 text-md md:text-2xl hover:scale-110">
           {theme === 'dark' ? '🌕 Light' : '🌑 Dark'}
         </button>
       </div>
@@ -84,7 +79,7 @@ function Challenge() {
               <img
                 src={userData.avatar_url}
                 alt="Avatar"
-                className="w-20 h-20 md:w-16 md:h-16 rounded-full"
+                className="w-20 h-20 ml-3 md:w-16 md:h-16 rounded-full"
               />
               <h2 className="text-lg md:text-xl font-bold">{userData.name || "No Name"}</h2>
             </div>
