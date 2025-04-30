@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { FaLocationDot } from "react-icons/fa6";
-import { FaTwitter } from "react-icons/fa";
+
 
 function Challenge() {
   const [username, setUsername] = useState('');
@@ -114,8 +113,8 @@ function Challenge() {
           </div>
 
           <div className="mt-6 md:ml-20 grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <p>{userData.location || "Not Available"}</p>
-            <p className="flex items-center gap-2">
+            <p>📍{userData.location || "📍Not Available"}</p>
+            <p >
               {userData.blog ? (
                 <a
                   href={userData.blog.startsWith('http') ? userData.blog : `https://${userData.blog}`}
@@ -123,11 +122,10 @@ function Challenge() {
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 text-blue-600"
                 >
-                  <FaLocationDot />
-                  {userData.blog}
+                  🔗{userData.blog}
                 </a>
               ) : (
-                "Not Available"
+                "🔗Not Available"
               )}
             </p>
             <p>
@@ -138,14 +136,14 @@ function Challenge() {
                   rel="noopener noreferrer"
                   className="text-blue-600 dark:text-blue-400"
                 >
-                  <FaTwitter />
-                  @a{userData.twitter_username}
+                  
+                  🐦@{userData.twitter_username}
                 </a>
               ) : (
-                "Not Available"
+                "🐦Not Available"
               )}
             </p>
-            <p>{userData.company || "Not Available"}</p>
+            <p>💒{userData.company || "💒Not Available"}</p>
           </div>
         </div>
       )}
